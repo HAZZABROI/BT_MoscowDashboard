@@ -1,0 +1,53 @@
+@font-face {
+  font-family: 'TT Norms Pro';
+  font-weight: 400;
+  src: url('./static/fonts/TTNormsPro-Regular.woff2');
+}
+
+@font-face {
+  font-family: 'TT Norms Pro';
+  font-weight: 500;
+  src: url('./static/fonts/TTNormsPro-Medium.woff2');
+}
+
+
+:root {
+  font-family: 'TT Norms Pro';
+  line-height: 1.5;
+  font-weight: 300;
+
+  color-scheme: light dark;
+  color: #111111;
+  background-color: #F8F8F8;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100vw;
+}
+
+/* @media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+} */
