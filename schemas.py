@@ -12,3 +12,12 @@ class ClientBaseDateTimeResponse(BaseModel):
 
 class ClientBaseWeatherResponse(BaseModel):
     data: models.Weather
+    
+class ClientBaseMeaningfulDtpResponse(BaseModel):
+    data: models.MeaningfulDtp
+    
+class ClientBaseImpotentEventsResponse(BaseModel):
+    data: models.ImpotentEvents
+
+class ClientBasePassangerTrafficResponse(BaseModel):
+    data: models.ImpotentEvents
