@@ -23,8 +23,26 @@ export default function StatusBlock() {
           </div>
           <div className={styles.workload_top}>
             <div className={styles.top_header}>Топ-3 самые загруженные магистрали:</div>
-            <div className={styles.top_element}></div>
+            <ol className={styles.top_rating}>
+              <li className={styles.top_element}>Шоссе Энтузиастов</li>
+              <li className={styles.top_element}>Варшавское шоссе</li>
+              <li className={styles.top_element}>МКАД</li>
+            </ol>
           </div>
+        </div>
+        <div className={styles.traffic_section}>
+          <div className={styles.section_header}>Длина заторов</div>
+          <div className={styles.section_data}>12 км</div>
+          <div className={styles.section_trend + ' ' + styles.green}>Тренд: вверх</div>
+          <div className={styles.section_deviation}>Отклонение от APPN: 10%</div>
+          <div className={styles.section_deviation}>Отклонение от APPG: 10%</div>
+        </div>
+        <div className={styles.traffic_section}>
+          <div className={styles.section_header}>Время в пути (на 10 км)</div>
+          <div className={styles.section_data}>10 мин</div>
+          <div className={styles.section_trend + ' ' + styles.red}>Тренд: вниз</div>
+          <div className={styles.section_deviation}>Отклонение от APPN: 10%</div>
+          <div className={styles.section_deviation}>Отклонение от APPG: 10%</div>
         </div>
       </div>
       <div className={styles.status}>
