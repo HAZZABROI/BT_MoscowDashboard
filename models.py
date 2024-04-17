@@ -24,7 +24,7 @@ class MeaningfulDtp(BaseModel):
 class ImpotentEvents(BaseModel):
     time: str = Field(default="10:00")
     adress: str = Field(default="Образцова 9 стр.2")
-    event_describtion: str = Field(default="Официальное открытие Хакатона «Битве тITанов»")
+    event_describtion: str = Field(default="Официальное открытие Хакатона «Битве тITанов")
 
 class NGPT(BaseModel):
     ngpt_yesterday: int = Field(default=1813023)

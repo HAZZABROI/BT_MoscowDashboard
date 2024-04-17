@@ -44,3 +44,45 @@ async def get_weather() -> schemas.ClientBaseWeatherResponse:
     )
     return response
 
+@router.get("/meaningful_dtp",
+             tags=["Client side"]
+)
+
+async def get_meaningful_dtp() -> schemas.ClientBaseMeaningfulDtpResponse:
+    time = "7:45"
+    adress = "Образцова 9 стр.2"
+    event_description = "Официальное открытие Хакатона «Битве тITанов"
+    time_gubdd = 10
+    
+    respons = schemas.ClientBaseMeaningfulDtpResponse(
+        data = models.MeaningfulDtp(
+            time=time,
+            adress=adress,
+            descridtion=event_description,
+            time_gubdd=time_gubdd
+        )
+    )
+    return respons
+
+@router.get("/meaningful_dtp",
+             tags=["Client side"]
+)
+
+async def impotent_events() -> schemas.ClientBaseImpotentEventsResponse:
+    time = "7:45"
+    adress = "Образцова 9 стр.2"
+    event_describtion = "Официальное открытие Хакатона «Битве тITанов"
+    
+    respons = schemas.ClientBaseImpotentEventsResponse(
+        data = models.ImpotentEvents()
+    )
+    return respons
+
+@router.get("/meaningful_dtp",
+             tags=["Client side"]
+)
+async def passanger_traffic() -> schemas.ClientBaseImpotentEventsResponse:
+    respons = schemas.ClientBasePassangerTrafficResponse(
+        data = models.PassangerTraffic()
+    )
+    return respons

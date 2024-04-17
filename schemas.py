@@ -20,4 +20,4 @@ class ClientBaseImpotentEventsResponse(BaseModel):
     data: models.ImpotentEvents
 
 class ClientBasePassangerTrafficResponse(BaseModel):
-    data: models.ImpotentEvents
+    data: models.PassangerTraffic
