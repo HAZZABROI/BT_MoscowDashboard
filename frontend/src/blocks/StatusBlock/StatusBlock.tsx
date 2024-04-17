@@ -1,5 +1,7 @@
 import styles from './StatusBlock.module.scss';
 import cloudIcon from '../../static/icons/cloud.svg';
+import sunIcon from '../../static/icons/sun.svg';
+import rainIcon from '../../static/icons/rain.svg';
 
 const days = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
 const zeroPad = (num: number, places: number) => String(num).padStart(places, '0')
@@ -7,6 +9,8 @@ const zeroPad = (num: number, places: number) => String(num).padStart(places, '0
 export default function StatusBlock() {
 
   const date = new Date();
+
+  const weather_status: string = "дождь";
 
   return (
     <section className={styles.block}>
@@ -51,7 +55,7 @@ export default function StatusBlock() {
           <div className={styles.date_day}>{date.toLocaleString('ru-RU', { day: 'numeric', month: 'long' })}, {days[date.getDay()]}</div>
         </div>
         <div className={styles.weather}>
-          <img src={cloudIcon} alt="" className={styles.cloud} />
+          <img src={weather_status === "облачно" ? cloudIcon : weather_status.includes('дождь') ? rainIcon : sunIcon} alt="" className={styles.weather_icon} />
           <div className={styles.weather_status}>Пасмурно</div>
           <div className={styles.weather_temp}>8°C</div>
           <div className={styles.weather_prediction}>Вечером: +5°C, пасмурно</div>
