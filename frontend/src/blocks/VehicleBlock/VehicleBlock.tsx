@@ -41,7 +41,7 @@ export default function VehicleBlock() {
           data={[
             { type: 'pie', labels: ["Такси", "Каршеринг", "НГПТ"], values: [2, 3, 4]},
           ]}
-          layout={{ width: "100%", title: 'ТС на Улично-Дорожной Сети' }}
+          layout={{ title: 'ТС на Улично-Дорожной Сети' }}
           className={styles.plot}
         />
       </div>
