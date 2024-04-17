@@ -11,7 +11,7 @@ from app.routers import clientside
 
 tags_meta = [
     {
-        'name': 'Client Side',
+        'name': 'Client side',
         'description': 'Some methods'
     }
 ]

@@ -6,6 +6,8 @@ import asyncio
 
 from app.data import schemas
 
+import pandas as pd
+
 load_dotenv()
 
 SYSTEM_SECRET = getenv('SYSTEM_SECRET')
