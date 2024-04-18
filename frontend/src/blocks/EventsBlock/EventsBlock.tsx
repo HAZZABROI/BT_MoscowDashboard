@@ -3,7 +3,7 @@ import styles from './EventsBlock.module.scss';
 export default function EventsBlock() {
   return (
     <section className={styles.block}>
-      <div className={styles.header}>Значимые события</div>
+      <div className={styles.header}>💥 Значимые события</div>
       <div className={styles.events}>
         <div className={styles.events_header}>
           <span className={styles.header_element}>Время</span>

@@ -38,17 +38,7 @@
 
 .stat_param {
   width: 100%;
-  font-size: 16px;
-}
-
-.stat_trend {
-  font-size: 16px;
-  &.green {
-    color: #13BE62;
-  }
-  &.red {
-    color: #FF3030;
-  }
+  font-size: 18px;
 }
 
 .label {
@@ -77,4 +67,8 @@
   width: 100%;
   border-radius: 15px;
   // box-shadow: 0px 0px 20px rgba(0, 0, 0, .1);
+}
+
+.amount {
+  font-size: 64px;
 }

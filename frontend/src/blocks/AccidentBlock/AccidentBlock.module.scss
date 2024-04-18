@@ -35,18 +35,7 @@
 
 .stats_param {
   width: 100%;
-  font-size: 16px;
-}
-
-.stats_trend {
-  width: 100%;
-  font-size: 16px;
-  &.green {
-    color: #13BE62;
-  }
-  &.red {
-    color: #FF3030;
-  }
+  font-size: 18px;
 }
 
 .died {
@@ -134,4 +123,12 @@
 
 .item_description {
   flex: 2;
+}
+
+.amount {
+  font-size: 64px;
+}
+
+.warning {
+  color: #FF3030;
 }

@@ -5,6 +5,7 @@ import RepairBlock from './../../blocks/RepairBlock/RepairBlock';
 import VehicleBlock from '../../blocks/VehicleBlock/VehicleBlock';
 import AccidentBlock from './../../blocks/AccidentBlock/AccidentBlock';
 import EventsBlock from './../../blocks/EventsBlock/EventsBlock';
+import FlowBlock from './../../blocks/FlowBlock/FlowBlock';
 
 export default function Dashboard() {
   return (
@@ -16,6 +17,7 @@ export default function Dashboard() {
         <VehicleBlock />
         <AccidentBlock />
         <EventsBlock />
+        <FlowBlock />
       </main>
     </div>
   )
