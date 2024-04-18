@@ -36,38 +36,50 @@ class Workload(BaseModel):
     score: int = Field(default=1)
     nearest: List[Score]
     lenght_jam: int = Field(default=126)
-    trend: str = Field(default="up | down")
-    deviation_appn_jam: int = Field(default=23, description="In percentage")
-    deviation_appg_jam: int = Field(default=11, description="In percentage")
+    trend_jam: str = Field(default="up | down")
+    trend_time: str = Field(default="up | down")
+    deviation_appn_jam: float = Field(default=23, description="In percentage")
+    deviation_appg_jam: float = Field(default=11, description="In percentage")
     driving_time_min: int = Field(default=12, description="Travel time per 10 km")
-    deviation_appn_driving: int = Field(default=23, description="In percentage")
-    deviation_appg_driving: int = Field(default=11, description="In percentage")
+    deviation_appn_driving: float = Field(default=23, description="In percentage")
+    deviation_appg_driving: float = Field(default=11, description="In percentage")
     top_list: List[WorkloadHW] = Field(description="Top 3 busiest highways")
 
 
 class InfoTaxi(BaseModel):
     date: DateTime
+    count: int = Field(default=123)
     trend: str = Field(default="up | down")
-    deviation_appn_count: int = Field(default=23, description="In percentage")
-    deviation_appg_count: int = Field(default=11, description="In percentage")
+    deviation_appn_count: float = Field(default=23, description="In percentage")
+    deviation_appg_count: float = Field(default=11, description="In percentage")
 
 
 class InfoCarsharing(BaseModel):
     date: DateTime
+    count: int = Field(default=123)
     trend: str = Field(default="up | down")
-    deviation_appn_count: int = Field(default=23, description="In percentage")
-    deviation_appg_count: int = Field(default=11, description="In percentage")
+    deviation_appn_count: float = Field(default=23, description="In percentage")
+    deviation_appg_count: float = Field(default=11, description="In percentage")
+
+
+class InfoDetailTransportNearest(BaseModel):
+    date: DateTime
+    count: int = Field(default=123)
 
 
 class InfoNGPT(BaseModel):
     date: DateTime
+    count: int = Field(default=123)
     trend: str = Field(default="up | down")
-    deviation_appn_count: int = Field(default=23, description="In percentage")
-    deviation_appg_count: int = Field(default=11, description="In percentage")
+    deviation_appn_count: float = Field(default=23, description="In percentage")
+    deviation_appg_count: float = Field(default=11, description="In percentage")
 
 
 class TransportInfo(BaseModel):
     date: DateTime
+    unic_count: int = Field(default=12332)
+    nearest: List[InfoDetailTransportNearest]
+    trend: str = Field(default="up | down")
     infoTaxi: InfoTaxi
     infoCarsharing: InfoCarsharing
     infoNGPT: InfoNGPT 

@@ -2,25 +2,10 @@ from fastapi import APIRouter, Header, HTTPException
 
 from typing import Annotated, Dict
 from app.data import models, schemas
-
+from datetime import datetime, timedelta
 from app.generators import data_getter
 
 router = APIRouter(prefix="/server", tags=["Client side"])
-
-@router.get("/datetime",
-            tags=["Client side"]
-)
-async def get_date() -> schemas.ClientBaseDateTimeResponse:
-    date = "2024-04-12"
-    time = "12:00"
-
-    response = schemas.ClientBaseDateTimeResponse(
-        data=models.DateTime(
-            date=date,
-            time=time
-        )
-    )
-    return response
 
 @router.get("/weather",
             tags=["Client side"]
@@ -49,52 +34,45 @@ async def get_weather() -> schemas.ClientBaseWeatherResponse:
     )
     return response
 
-@router.get("/weather",
-            tags=["Client side"]
-)
-async def get_weather() -> schemas.ClientBaseWeatherResponse:
-    status_weather_now = "облачно"
-    teperature = 2
-    nearest = []
-    for i in range(3):
-        nearest.append(models.WeatherInfo(
-            status_weather="Облачно",
-            temperature=i
-        ))
-    
-    response = schemas.ClientBaseWeatherResponse(
-        data=models.Weather(
-            now=models.WeatherInfo(
-                status_weather=status_weather_now,
-                temperature=teperature
-            ),
-            nearest=nearest
-        )
-    )
-    return response
-
 @router.get("/workload",
             tags=["Client side"]
 )
 async def get_workload() -> schemas.ClientBaseWorkloadResponse:
-    nearest = []
-    for i in range(3):
-        nearest.append(models.Score(
-            date=models.DateTime(),
-            score=i
-        ))
 
-    workload_top = []
-    for i in range(4):
-        workload_top.append(models.WorkloadHW(
-            date=models.DateTime()
-        ))
+    data = data_getter.get_workload_info()
     
+    top_list = []
+
+    for i in data["top_list"]:
+        top_list.append(
+            models.WorkloadHW(
+                date=models.DateTime(
+                    date=i["date"]["date"],
+                    time=i["date"]["time"]
+                ),
+                nameHW=i["nameHW"],
+                direction=i["direction"],
+                top=i["top"]
+            )
+        )
+
     response = schemas.ClientBaseWorkloadResponse(
         data=models.Workload(
-            date=models.DateTime(),
-            top_list=workload_top,
-            nearest=nearest
+            date=models.DateTime(
+                date=data["top_list"][0]["date"]["date"],
+                time=data["top_list"][0]["date"]["time"]
+            ),
+            score=data["score"],
+            nearest=data["nearest"],
+            lenght_jam=data["lenght_jam"],
+            trend_jam=data["trend_jam"],
+            trend_time=data["trend_time"],
+            deviation_appn_jam=data["deviation_appn_jam"],
+            deviation_appg_jam=data["deviation_appg_jam"],
+            deviation_appg_driving=data["deviation_appg_driving"],
+            deviation_appn_driving=data["deviation_appn_driving"],
+            driving_time_min=data["driving_time_min"],
+            top_list=top_list
         )
     )
     return response
@@ -104,45 +82,94 @@ async def get_workload() -> schemas.ClientBaseWorkloadResponse:
 )
 async def get_transport_info() -> schemas.ClientBaseTransportInfoResponse:
     
+    data = data_getter.get_transport_info()
+
+    summ = 0
+    given_datetime = datetime.strptime(data["date"]["time"], "%H:%M")
+    new_datetime = given_datetime + timedelta(hours=1)
+    for vehicle_type, count in data["next_hour_forecast"].items():
+        summ += count
+
     response = schemas.ClientBaseTransportInfoResponse(
         data=models.TransportInfo(
-            date=models.DateTime(),
+            date=models.DateTime(
+                date=data["date"]["date"],
+                time=data["date"]["time"]
+            ),
+            unic_count=data['total_vehicle_count'],
             infoTaxi=models.InfoTaxi(
-                date=models.DateTime()
+                date=models.DateTime(
+                    date=data["date"]["date"],
+                    time=data["date"]["time"]
+                ),
+                count=data["trends"]["Такси"]["count"],
+                trend=data["trends"]["Такси"]["trend"],
+                deviation_appn_count=data["trends"]["Такси"]["deviation_appn_count"],
+                deviation_appg_count=data["trends"]["Такси"]["deviation_appg_count"]
             ),
             infoNGPT=models.InfoNGPT(
-                date=models.DateTime()
+                date=models.DateTime(
+                    date=data["date"]["date"],
+                    time=data["date"]["time"]
+                ),
+                count=data["trends"]["НГПТ"]["count"],
+                trend=data["trends"]["НГПТ"]["trend"],
+                deviation_appn_count=data["trends"]["НГПТ"]["deviation_appn_count"],
+                deviation_appg_count=data["trends"]["НГПТ"]["deviation_appg_count"]
             ),
             infoCarsharing=models.InfoCarsharing(
-                date=models.DateTime()
-            )
+                date=models.DateTime(
+                    date=data["date"]["date"],
+                    time=data["date"]["time"]
+                ),
+                count=data["trends"]["Каршеринг"]["count"],
+                trend=data["trends"]["Каршеринг"]["trend"],
+                deviation_appn_count=data["trends"]["Каршеринг"]["deviation_appn_count"],
+                deviation_appg_count=data["trends"]["Каршеринг"]["deviation_appg_count"]
+            ),
+            nearest=[models.InfoDetailTransportNearest(
+                date=models.DateTime(
+                    date=data["date"]["date"],
+                    time=new_datetime.strftime("%H:%M")
+                ),
+                count=summ
+            )]
         )
     )
     return response
 
-@router.get("/transport/info",
+@router.get("/constructions/info",
             tags=["Client side"]
 )
 async def get_construction_work() -> schemas.ClientBaseConstructionWorkResponse:
     
-    unknownWorksList = []
-    approvedWorkList = []
+    data = data_getter.get_work_info()
 
-    for i in range(3):
-        unknownWorksList.append(models.UnknownWork(
-            date=models.DateTime(),
-            count=i
-        ))
-
-    for i in range(3):
-        approvedWorkList.append(models.ApprovedWork(
-            date=models.DateTime(),
-            count=i
-        ))
+    unknownWorksList = [models.UnknownWork(
+        date=models.DateTime(
+            date=data["approvedWorkList"][0]["date"]["date"],
+            time=data["approvedWorkList"][0]["date"]["time"]
+        ),
+        count=data["unknownWorksList"][0]["count"],
+        deviation_appn_count=data["unknownWorksList"][0]["deviation_appn_count"],
+        deviation_appg_count=data["unknownWorksList"][0]["deviation_appg_count"]
+    )]
+    approvedWorkList = [models.ApprovedWork(
+        date=models.DateTime(
+            date=data["approvedWorkList"][0]["date"]["date"],
+            time=data["approvedWorkList"][0]["date"]["time"]
+        ),
+        count=data["approvedWorkList"][0]["count"],
+        deviation_appn_count=data["approvedWorkList"][0]["deviation_appn_count"],
+        deviation_appg_count=data["approvedWorkList"][0]["deviation_appg_count"]
+    )]
 
     response = schemas.ClientBaseConstructionWorkResponse(
         data=models.ConstructionWork(
-            date=models.DateTime(),
+            date=models.DateTime(
+                date=data["approvedWorkList"][0]["date"]["date"],
+                time=data["approvedWorkList"][0]["date"]["time"]
+            ),
             unknownWorksList=unknownWorksList,
             approvedWorkList=approvedWorkList
         )
@@ -171,13 +198,15 @@ async def get_accident() -> schemas.ClientBaseTrafficAccidentResponse:
 )
 async def get_die_accedint(date_from: str, time_from: str) -> schemas.ClientBaseTrafficAccidentDieInfoResponse:
 
+    data = data_getter.get_accident_count_from(date_from + " " + time_from)
+
     response = schemas.ClientBaseTrafficAccidentDieInfoResponse(
         data=models.TrafficAccidentDieInfo(
             date_from=models.DateTime(
                 date=date_from,
                 time=time_from
             ),
-            count=2
+            count=data["total_death_count"]
         )
     )
     return response
