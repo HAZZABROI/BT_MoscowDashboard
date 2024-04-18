@@ -1,9 +1,13 @@
 import styles from './FlowBlock.module.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function FlowBlock() {
 
   const [selectedVehicle, setSelectedVehicle] = useState<string>("");
+
+  useEffect(() => {
+    console.log(selectedVehicle);
+  }, [selectedVehicle]);
 
   return (
     <section className={styles.block}>
