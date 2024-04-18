@@ -105,18 +105,20 @@ export default function StatusBlock() {
           </div>
         </div>
       </div>
-      <div className={styles.status}>
-        <div className={styles.date}>
-          <div className={styles.date_time}>{`${zeroPad(date.getHours(), 2)}:${zeroPad(date.getMinutes(), 2)}`}</div>
-          <div className={styles.date_day}>{date.toLocaleString('ru-RU', { day: 'numeric', month: 'long' })}, {days[date.getDay()]}</div>
+      <section className={styles.status_wrapper}>
+        <div className={styles.status}>
+          <div className={styles.date}>
+            <div className={styles.date_time}>{`${zeroPad(date.getHours(), 2)}:${zeroPad(date.getMinutes(), 2)}`}</div>
+            <div className={styles.date_day}>{date.toLocaleString('ru-RU', { day: 'numeric', month: 'long' })}, {days[date.getDay()]}</div>
+          </div>
+          <div className={styles.weather}>
+            <img src={weather.now.status_weather === "облачно" ? cloudIcon : weather.now.status_weather.includes('дождь') ? rainIcon : sunIcon} alt="" className={styles.weather_icon} />
+            <div className={styles.weather_status}>{weather.now.status_weather}</div>
+            <div className={styles.weather_temp}>{weather.now.temperature}°C</div>
+            <div className={styles.weather_prediction}>Далее: {weather.nearest[0].temperature}°C, {weather.nearest[0].status_weather}</div>
+          </div>
         </div>
-        <div className={styles.weather}>
-          <img src={weather.now.status_weather === "облачно" ? cloudIcon : weather.now.status_weather.includes('дождь') ? rainIcon : sunIcon} alt="" className={styles.weather_icon} />
-          <div className={styles.weather_status}>{weather.now.status_weather}</div>
-          <div className={styles.weather_temp}>{weather.now.temperature}°C</div>
-          <div className={styles.weather_prediction}>Далее: {weather.nearest[0].temperature}°C, {weather.nearest[0].status_weather}</div>
-        </div>
-      </div>
+      </section>
     </section>
   )
 }
