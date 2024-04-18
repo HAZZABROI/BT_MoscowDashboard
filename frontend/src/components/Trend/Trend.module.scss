@@ -1,0 +1,16 @@
+.trend {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  gap: 5px;
+}
+
+.trend_label {
+  font-size: 18px;
+}
+
+.trend_icon {
+  width: 25px;
+  height: 25px;
+}

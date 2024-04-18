@@ -1,0 +1,74 @@
+.block {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  gap: 30px;
+  width: 100%;
+}
+
+.header {
+  width: 100%;
+  font-size: 32px;
+}
+
+.stats {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 30%;
+}
+
+.stat_block {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  width: 50%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, .1);
+  gap: 20px;
+}
+
+.stat_param {
+  width: 100%;
+  font-size: 18px;
+}
+
+.label {
+  width: 100%;
+  font-size: 24px;
+}
+
+.select {
+  width: 50%;
+  border: none;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, .1);
+  color: #111111;
+  font-size: 20px;
+  cursor: pointer;
+  font-family: 'TT Norms Pro';
+}
+
+.plot_wrapper {
+  width: 40%;
+}
+
+.plot {
+  width: 100%;
+  border-radius: 15px;
+  // box-shadow: 0px 0px 20px rgba(0, 0, 0, .1);
+}
+
+.amount {
+  font-size: 64px;
+}
