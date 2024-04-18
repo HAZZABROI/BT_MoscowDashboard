@@ -69,7 +69,7 @@ export default function VehicleBlock() {
           <option value='ngpt'>НГПТ</option>
         </select>
         <div className={styles.stat_block}>
-          <div className={styles.stat_param}><span className={styles.amount}>123</span></div>
+          <div className={styles.stat_param} style={{width: 'auto'}}><span className={styles.amount}>{currentVehicleData.count}</span></div>
           <Trend trend={currentVehicleData.trend} />
           <div className={styles.stat_param}>Отклонение от APPN: {currentVehicleData.deviation_appn_count}%</div>
           <div className={styles.stat_param}>Отклонение от APPG: {currentVehicleData.deviation_appg_count}%</div>

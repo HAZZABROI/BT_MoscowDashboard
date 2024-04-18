@@ -5,7 +5,7 @@
   align-content: flex-start;
   flex-wrap: wrap;
   gap: 30px;
-  width: 100%;
+  width: 60%;
 }
 
 .header {
@@ -19,16 +19,16 @@
   align-items: flex-start;
   flex-wrap: wrap;
   gap: 20px;
-  width: 100%;
+  width: 50%;
 }
 
 .stat_block {
   display: flex;
   justify-content: flex-start;
-  align-items: flex-start;
-  align-content: flex-start;
+  align-items: center;
+  align-content: center;
   flex-wrap: wrap;
-  width: 50%;
+  width: 100%;
   background-color: #fff;
   padding: 20px;
   border-radius: 15px;
@@ -38,12 +38,12 @@
 
 .stat_param {
   width: 100%;
-  font-size: 24px;
+  font-size: 20px;
 }
 
 .label {
   width: 100%;
-  font-size: 24px;
+  font-size: 20px;
 }
 
 .select {
@@ -69,7 +69,8 @@
 .plot_wrapper {
   display: flex;
   justify-content: flex-start;
-  align-items: flex-start
+  align-items: flex-start;
+  width: 47%;
 }
 
 .plot {

@@ -42,7 +42,7 @@ export default function AccidentBlock() {
     <header className={styles.header}>📛 ДТП</header>
     <div className={styles.accident_stats}>
       <div className={styles.stats}>
-        <div className={styles.stats_param}>
+        <div className={styles.stats_param} style={{width: 'auto'}}>
           <span className={styles.amount + (accidentInfo.count > 5 ? ' ' + styles.warning : '')}>{accidentInfo.count}</span> ДТП
         </div>
         <Trend trend={accidentInfo.trend} />

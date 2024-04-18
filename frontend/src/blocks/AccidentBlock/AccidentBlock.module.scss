@@ -5,7 +5,7 @@
   align-content: flex-start;
   flex-wrap: wrap;
   gap: 30px;
-  width: calc(50% + 20px);
+  width: 60%;
 }
 
 .header {
@@ -23,8 +23,8 @@
 .stats {
   display: flex;
   justify-content: flex-start;
-  align-items: flex-start;
-  align-content: flex-start;
+  align-items: center;
+  align-content: center;
   flex-wrap: wrap;
   width: 30%;
   background-color: #fff;
@@ -36,7 +36,7 @@
 
 .stats_param {
   width: 100%;
-  font-size: 24px;
+  font-size: 20px;
 }
 
 .died {
@@ -55,7 +55,7 @@
 
 .died_header {
   width: 100%;
-  font-size: 24px;
+  font-size: 20px;
 }
 
 .died_amount {
