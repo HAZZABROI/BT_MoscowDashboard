@@ -233,3 +233,84 @@ def get_workload_info():
         workload["top_list"].append(top_highway_data)
 
     return workload
+
+def get_miningful_accident():
+    df = pd.read_excel('app/data.xlsx', sheet_name=7)
+
+    json_data = []
+    for index, row in df.iterrows():
+        data = {
+            "time": {
+                "date": str(row['dt']),
+                "time": str(row['time'])
+            },
+            "adress": row['adress'],
+            "describtion": row['accident_description'],
+            "time_gubdd": int(row['gbdd_time'])
+        }
+        json_data.append(data)
+
+    return {"data": json_data}
+
+def get_miningful_events():
+    df = pd.read_excel('app/data.xlsx', sheet_name=8)
+
+    json_data = []
+    for index, row in df.iterrows():
+        data = {
+            "time": {
+                "date": str(row['dt']),
+                "time": str(row['time'])
+            },
+            "adress": row['adress'],
+            "describtion": row['event_description']
+        }
+        json_data.append(data)
+
+    return {"data": json_data}
+
+def get_passagir_traffic():
+    current_date = datetime.now().strftime('%Y-%m-%d')
+    yesterday_date = (datetime.now() - timedelta(1)).strftime('%Y-%m-%d')
+
+    df = pd.read_excel("app/data.xlsx", sheet_name=9)
+
+    df_today = df[df['dt'] == current_date]
+    df_yesterday = df[df['dt'] == yesterday_date]
+
+    data = {
+        "data": {
+            "info_ngpt": {
+                "ngpt_yesterday": df_yesterday.loc[df_yesterday['transport_type'] == 'Метро + МЦК', 'passengers_cnt'].values[0],
+                "ngpt_2weeks_ago": df_today.loc[df_today['transport_type'] == 'Метро + МЦК', 'passengers_cnt_2_weeks_ago'].values[0],
+                "daviation": round((df_yesterday.loc[df_yesterday['transport_type'] == 'Метро + МЦК', 'passengers_cnt'].values[0] - df_today.loc[df_today['transport_type'] == 'Метро + МЦК', 'passengers_cnt_2_weeks_ago'].values[0]) / df_today.loc[df_today['transport_type'] == 'Метро + МЦК', 'passengers_cnt_2_weeks_ago'].values[0] * 100, 2)
+            },
+            "infa_surban_trains": {
+                "suburban_trains_yesterday": df_yesterday.loc[df_yesterday['transport_type'] == 'Пригородные поезда', 'passengers_cnt'].values[0],
+                "suburban_trains_2weeks_ago": df_today.loc[df_today['transport_type'] == 'Пригородные поезда', 'passengers_cnt_2_weeks_ago'].values[0],
+                "daviation": round((df_yesterday.loc[df_yesterday['transport_type'] == 'Пригородные поезда', 'passengers_cnt'].values[0] - df_today.loc[df_today['transport_type'] == 'Пригородные поезда', 'passengers_cnt_2_weeks_ago'].values[0]) / df_today.loc[df_today['transport_type'] == 'Пригородные поезда', 'passengers_cnt_2_weeks_ago'].values[0] * 100, 2)
+            },
+            "infa_taxi": {
+                "taxi_yesterday": df_yesterday.loc[df_yesterday['transport_type'] == 'Такси', 'passengers_cnt'].values[0],
+                "taxi_2weeks_ago": df_today.loc[df_today['transport_type'] == 'Такси', 'passengers_cnt_2_weeks_ago'].values[0],
+                "daviation": round((df_yesterday.loc[df_yesterday['transport_type'] == 'Такси', 'passengers_cnt'].values[0] - df_today.loc[df_today['transport_type'] == 'Такси', 'passengers_cnt_2_weeks_ago'].values[0]) / df_today.loc[df_today['transport_type'] == 'Такси', 'passengers_cnt_2_weeks_ago'].values[0] * 100, 2)
+            },
+            "infa_carshering": {
+                "carshering_yesterday": df_yesterday.loc[df_yesterday['transport_type'] == 'Каршеринг', 'passengers_cnt'].values[0],
+                "carshering_2weeks_ago": df_today.loc[df_today['transport_type'] == 'Каршеринг', 'passengers_cnt_2_weeks_ago'].values[0],
+                "daviation": round((df_yesterday.loc[df_yesterday['transport_type'] == 'Каршеринг', 'passengers_cnt'].values[0] - df_today.loc[df_today['transport_type'] == 'Каршеринг', 'passengers_cnt_2_weeks_ago'].values[0]) / df_today.loc[df_today['transport_type'] == 'Каршеринг', 'passengers_cnt_2_weeks_ago'].values[0] * 100, 2)
+            },
+            "infa_electrosuda": {
+                "electrosuda_yesterday": df_yesterday.loc[df_yesterday['transport_type'] == 'Личный транспорт', 'passengers_cnt'].values[0],
+                "electrosuda_2weeks_ago": df_today.loc[df_today['transport_type'] == 'Личный транспорт', 'passengers_cnt_2_weeks_ago'].values[0],
+                "daviation": round((df_yesterday.loc[df_yesterday['transport_type'] == 'Личный транспорт', 'passengers_cnt'].values[0] - df_today.loc[df_today['transport_type'] == 'Личный транспорт', 'passengers_cnt_2_weeks_ago'].values[0]) / df_today.loc[df_today['transport_type'] == 'Личный транспорт', 'passengers_cnt_2_weeks_ago'].values[0] * 100, 2)
+            },
+            "infa_electrosuda": {
+                "electrosuda_yesterday": df_yesterday.loc[df_yesterday['transport_type'] == 'Электросуда', 'passengers_cnt'].values[0],
+                "electrosuda_2weeks_ago": df_today.loc[df_today['transport_type'] == 'Электросуда', 'passengers_cnt_2_weeks_ago'].values[0],
+                "daviation": round((df_yesterday.loc[df_yesterday['transport_type'] == 'Электросуда', 'passengers_cnt'].values[0] - df_today.loc[df_today['transport_type'] == 'Электросуда', 'passengers_cnt_2_weeks_ago'].values[0]) / df_today.loc[df_today['transport_type'] == 'Электросуда', 'passengers_cnt_2_weeks_ago'].values[0] * 100, 2)
+            }
+        }
+    }
+
+    return data

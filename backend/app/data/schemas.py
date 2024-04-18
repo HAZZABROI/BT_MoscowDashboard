@@ -29,10 +29,10 @@ class ClientBaseTrafficAccidentDieInfoResponse(BaseModel):
     data: models.TrafficAccidentDieInfo
 
 class ClientBaseMeaningfulDtpResponse(BaseModel):
-    data: models.MeaningfulDtp
+    data: List[models.MeaningfulDtp]
     
 class ClientBaseImpotentEventsResponse(BaseModel):
-    data: models.ImpotentEvents
+    data: List[models.ImpotentEvents]
 
 class ClientBasePassangerTrafficResponse(BaseModel):
     data: models.PassangerTraffic
