@@ -5,9 +5,9 @@ import rainIcon from '../../static/icons/rain.svg';
 import Trend from '../../components/Trend/Trend';
 import { IWeather } from '../../static/types/IWeather';
 import { IWorkload } from '../../static/types/IWorkload';
-import trafficLightRedIcon from '../../static/icons/trafficlight/traffic-light-red.png';
-import trafficLightYellowIcon from '../../static/icons/trafficlight/traffic-light-yellow.png';
-import trafficLightGreenIcon from '../../static/icons/trafficlight/traffic-light-green.png';
+import trafficLightRedIcon from '../../static/icons/traffic-light-red.png';
+import trafficLightYellowIcon from '../../static/icons/traffic-light-yellow.png';
+import trafficLightGreenIcon from '../../static/icons/traffic-light-green.png';
 import { useEffect, useState } from 'react';
 
 const days = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
