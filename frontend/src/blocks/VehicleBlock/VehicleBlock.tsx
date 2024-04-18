@@ -36,10 +36,10 @@ export default function VehicleBlock() {
 
 
   useEffect(() => {
-    fetch('/server/transport/info')
+    fetch('http://82.97.250.132:8000/server/transport/info')
     .then(res => res.json())
     .then(data => {
-      setVehicle(data);
+      setVehicle(data.data);
     })
     .catch(err => {
       console.log(err);

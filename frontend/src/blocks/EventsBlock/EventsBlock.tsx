@@ -7,10 +7,10 @@ export default function EventsBlock() {
   const [events, setEvents] = useState<IEvent[]>([]);
 
   useEffect(() => {
-    fetch('/server/miningful/event')
+    fetch('http://82.97.250.132:8000/server/miningful/event')
     .then(res => res.json())
     .then(data => {
-      setEvents(data);
+      setEvents(data.data);
     })
     .catch(err => {
       console.log(err);

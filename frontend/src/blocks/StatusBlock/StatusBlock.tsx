@@ -30,19 +30,19 @@ export default function StatusBlock() {
   }, []);
 
   useEffect(() => {
-    fetch('/server/weather')
+    fetch('http://82.97.250.132:8000/server/weather')
     .then(res => res.json())
     .then(data => {
-      setWeather(data);
+      setWeather(data.data);
     })
     .catch(err => {
       console.log(err);
     });
 
-    fetch('/server/workload')
+    fetch('http://82.97.250.132:8000/server/workload')
     .then(res => res.json())
     .then(data => {
-      setWorkload(data);
+      setWorkload(data.data);
     })
     .catch(err => {
       console.log(err);

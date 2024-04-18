@@ -7,10 +7,10 @@ export default function RepairBlock() {
   const [repair, setRepair] = useState<IRepair>();
 
   useEffect(() => {
-    fetch('/server/constructions/info')
+    fetch('http://82.97.250.132:8000/server/constructions/info')
     .then(res => res.json())
     .then(data => {
-      setRepair(data);
+      setRepair(data.data);
     })
     .catch(err => {
       console.log(err);

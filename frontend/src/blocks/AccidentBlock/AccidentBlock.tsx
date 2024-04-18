@@ -17,19 +17,19 @@ export default function AccidentBlock() {
   const [accidents, setAccidents] = useState<IAccident[]>();
 
   useEffect(() => {
-    fetch('/server/traffic/accident')
+    fetch('http://82.97.250.132:8000/server/traffic/accident')
     .then(res => res.json())
     .then(data => {
-      setAccidentInfo(data);
+      setAccidentInfo(data.data);
     })
     .catch(err => {
       console.log(err);
     });
 
-    fetch('/server/miningful/accident')
+    fetch('http://82.97.250.132:8000/server/miningful/accident')
     .then(res => res.json())
     .then(data => {
-      setAccidents(data);
+      setAccidents(data.data);
     })
     .catch(err => {
       console.log(err);

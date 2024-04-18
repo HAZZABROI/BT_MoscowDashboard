@@ -9,11 +9,11 @@ export default function FlowBlock() {
   const [selectedVehicle, setSelectedVehicle] = useState<string>("metro");
 
   useEffect(() => {
-    fetch('/server/passagr/traffic')
+    fetch('http://82.97.250.132:8000/server/passagr/traffic')
     .then(res => res.json())
     .then(data => {
       // let newFlow = {};
-      setFlow(data);
+      setFlow(data.data);
     })
     .catch(err => {
       console.log(err);
