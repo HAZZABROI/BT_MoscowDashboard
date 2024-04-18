@@ -1,27 +1,15 @@
 export interface IFlow {
-  "info_ngpt": {
-    "yesterday": number,
-    "2weeks_ago": number,
-    "deviation": number
-  },
-  "info_surban_trains": {
-    "yesterday": number,
-    "2weeks_ago": number,
-    "deviation": number
-  },
-  "info_taxi": {
-    "yesterday": number,
-    "2weeks_ago": number,
-    "deviation": number
-  },
-  "info_carshering": {
-    "yesterday": number,
-    "2weeks_ago": number,
-    "deviation": number
-  },
-  "info_electrosuda": {
-    "yesterday": number,
-    "2weeks_ago": number,
-    "deviation": number
-  }
+  "info_ngpt": IFlowType,
+  "info_suburban_trains": IFlowType,
+  "info_taxi": IFlowType,
+  "info_carsharing": IFlowType,
+  "info_electrosuda": IFlowType,
+  "info_metro": IFlowType,
+  "info_personal": IFlowType,
+}
+
+export interface IFlowType {
+  "yesterday": number,
+  "2weeks_ago": number,
+  "deviation": number
 }
