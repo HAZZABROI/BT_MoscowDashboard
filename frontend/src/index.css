@@ -1,25 +1,14 @@
-@font-face {
-  font-family: 'TT Norms Pro';
-  font-weight: 400;
-  src: url('./static/fonts/TTNormsPro-Regular.woff2');
-}
-
-@font-face {
-  font-family: 'TT Norms Pro';
-  font-weight: 500;
-  src: url('./static/fonts/TTNormsPro-Medium.woff2');
-}
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 
 html {
   position: relative;
   min-height: 100%;
 }
 
-
 :root {
-  font-family: 'TT Norms Pro';
+  font-family: "Nunito Sans", sans-serif;
   line-height: 1.5;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 18px;
 
   color-scheme: light dark;
@@ -39,7 +28,7 @@ body {
 }
 
 option {
-  font-family: 'TT Norms Pro';
+  font-family: "Nunito Sans", sans-serif;
 }
 
 #root {
