@@ -5,6 +5,7 @@
   align-content: flex-start;
   flex-wrap: wrap;
   gap: 30px;
+  width: calc(50% + 20px);
 }
 
 .header {
@@ -73,7 +74,7 @@
   align-items: flex-start;
   align-content: flex-start;
   flex-wrap: wrap;
-  width: 90%;
+  width: 100%;
   background-color: #fff;
   padding: 20px;
   border-radius: 15px;

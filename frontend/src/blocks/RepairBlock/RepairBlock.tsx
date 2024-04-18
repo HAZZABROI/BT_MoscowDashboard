@@ -1,37 +1,25 @@
+import { useEffect, useState } from 'react';
 import { IRepair } from '../../static/types/IRepair';
 import styles from './RepairBlock.module.scss';
 
-const repair: IRepair = {
-  "date": {
-    "date": "2024-04-17",
-    "time": "13:00"
-  },
-  "unknownWorksList": [
-    {
-      "date": {
-        "date": "2024-04-17",
-        "time": "13:00"
-      },
-      "count": 20,
-      "deviation_appn_count": 23,
-      "deviation_appg_count": 11
-    }
-  ],
-  "approvedWorkList": [
-    {
-      "date": {
-        "date": "2024-04-17",
-        "time": "13:00"
-      },
-      "count": 20,
-      "deviation_appn_count": 23,
-      "deviation_appg_count": 11
-    }
-  ]
-}
-
 export default function RepairBlock() {
+
+  const [repair, setRepair] = useState<IRepair>();
+
+  useEffect(() => {
+    fetch('/server/constructions/info')
+    .then(res => res.json())
+    .then(data => {
+      setRepair(data);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  }, []);
+
   return (
+    repair
+    ?
     <section className={styles.block}>
       <div className={styles.repair}>
         <div className={styles.repair_header}>👷‍♂️ Строительные работы и  благоустройство:</div>
@@ -51,5 +39,7 @@ export default function RepairBlock() {
         </div>
       </div>
     </section>
+    :
+    ''
   )
 }

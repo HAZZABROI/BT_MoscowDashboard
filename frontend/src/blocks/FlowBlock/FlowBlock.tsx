@@ -1,15 +1,28 @@
+import { IFlow } from '../../static/types/IFlow';
 import styles from './FlowBlock.module.scss';
 import { useEffect, useState } from 'react';
 
 export default function FlowBlock() {
 
-  const [selectedVehicle, setSelectedVehicle] = useState<string>("");
+  const [flow, setFlow] = useState<IFlow>();
+
+  const [selectedVehicle, setSelectedVehicle] = useState<string>("metro");
 
   useEffect(() => {
-    console.log(selectedVehicle);
+    fetch('/server/passagr/traffic')
+    .then(res => res.json())
+    .then(data => {
+      // let newFlow = {};
+      setFlow(data);
+    })
+    .catch(err => {
+      console.log(err);
+    });
   }, [selectedVehicle]);
 
   return (
+    flow
+    ?
     <section className={styles.block}>
       <header className={styles.header}>🚌 Пассажиропоток на транспорте</header>
       <label className={styles.label}>Выберите ТС</label>
@@ -26,10 +39,12 @@ export default function FlowBlock() {
           <option value='electroships'>Электросуда</option>
       </select>
       <div className={styles.flow}>
-        <div className={styles.flow_param}><span className={styles.amount}>127896</span> пассажиров за вчера</div>
+        <div className={styles.flow_param}><span className={styles.amount}>{1234}</span> пассажиров за вчера</div>
         <div className={styles.flow_param}><span className={styles.amount}>127890</span> пассажиров две недели назад</div>
         <div className={styles.flow_param}>Отклонение: 2%</div>
       </div>
     </section>
+    :
+    ''
   )
 }

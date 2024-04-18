@@ -19,7 +19,7 @@ export interface IVehicle {
   infoNGPT: IVehicleType
 }
 
-interface IVehicleType {
+export interface IVehicleType {
   date: {
     date: string,
     time: string,

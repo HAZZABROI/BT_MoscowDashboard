@@ -8,63 +8,50 @@ import { IWorkload } from '../../static/types/IWorkload';
 import trafficLightRedIcon from '../../static/icons/trafficlight/traffic-light-red.svg';
 import trafficLightYellowIcon from '../../static/icons/trafficlight/traffic-light-yellow.svg';
 import trafficLightGreenIcon from '../../static/icons/trafficlight/traffic-light-green.svg';
+import { useEffect, useState } from 'react';
 
 const days = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
 const zeroPad = (num: number, places: number) => String(num).padStart(places, '0');
 
-const weather: IWeather = {
-  now: {
-    status_weather: 'облачно',
-    temperature: 10,
-  },
-  nearest: [
-    {
-      status_weather: 'облачно',
-      temperature: 10,
-    }
-  ]
-}
-
-const workload: IWorkload = {
-  "date": {
-    "date": "2024-04-17",
-    "time": "13:00"
-  },
-  "score": 5,
-  "nearest": [
-    {
-      "date": {
-        "date": "2024-04-17",
-        "time": "13:00"
-      },
-      "score": 1
-    }
-  ],
-  "lenght_jam": 126,
-  "trend_jam": "up",
-  "trend_time": "down",
-  "deviation_appn_jam": 23,
-  "deviation_appg_jam": 11,
-  "driving_time_min": 12,
-  "deviation_appn_driving": 23,
-  "deviation_appg_driving": 11,
-  "top_list": [
-    {
-      "date": {
-        "date": "2024-04-17",
-        "time": "13:00"
-      },
-      "nameHW": "Волоколамское шоссе",
-      "direction": "из центра",
-      "top": 1
-    }
-  ]
-}
 export default function StatusBlock() {
 
-  const date = new Date();
+  const [currentDate, setCurrentDate] = useState<Date>(new Date());
+
+  const [workload, setWorkload] = useState<IWorkload>();
+  const [weather, setWeather] = useState<IWeather>();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const date = new Date();
+      setCurrentDate(date);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    fetch('/server/weather')
+    .then(res => res.json())
+    .then(data => {
+      setWeather(data);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
+    fetch('/server/workload')
+    .then(res => res.json())
+    .then(data => {
+      setWorkload(data);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  }, []);
 
   return (
+    (workload && weather)
+    ?
     <section className={styles.block}>
       <header className={styles.header}>🛴 Добро пожаловать!</header>
       <div className={styles.traffic}>
@@ -108,8 +95,8 @@ export default function StatusBlock() {
       <section className={styles.status_wrapper}>
         <div className={styles.status}>
           <div className={styles.date}>
-            <div className={styles.date_time}>{`${zeroPad(date.getHours(), 2)}:${zeroPad(date.getMinutes(), 2)}`}</div>
-            <div className={styles.date_day}>{date.toLocaleString('ru-RU', { day: 'numeric', month: 'long' })}, {days[date.getDay()]}</div>
+            <div className={styles.date_time}>{`${zeroPad(currentDate.getHours(), 2)}:${zeroPad(currentDate.getMinutes(), 2)}:${zeroPad(currentDate.getSeconds(), 2)}`}</div>
+            <div className={styles.date_day}>{currentDate.toLocaleString('ru-RU', { day: 'numeric', month: 'long' })}, {days[currentDate.getDay()]}</div>
           </div>
           <div className={styles.weather}>
             <img src={weather.now.status_weather === "облачно" ? cloudIcon : weather.now.status_weather.includes('дождь') ? rainIcon : sunIcon} alt="" className={styles.weather_icon} />
@@ -120,5 +107,7 @@ export default function StatusBlock() {
         </div>
       </section>
     </section>
+    :
+    ''
   )
 }

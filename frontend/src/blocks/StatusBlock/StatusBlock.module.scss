@@ -19,7 +19,7 @@
   align-content: flex-start;
   flex-wrap: wrap;
   gap: 20px;
-  width: 50%;
+  width: calc(50% + 20px);
 }
 
 .traffic_workload {
@@ -147,16 +147,16 @@
   align-items: flex-start;
   flex-wrap: wrap;
   position: absolute;
-  top: 21%;
-  right: 50px;
+  top: 6%;
+  right: 20px;
   z-index: 2;
   width: 30%;
-  height: 250vh;
+  height: 100%;
 }
 
 .status {
   position: sticky;
-  top: 100px;
+  top: 50px;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;

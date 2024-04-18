@@ -2,71 +2,53 @@ import styles from './VehicleBlock.module.scss';
 import Plot from 'react-plotly.js';
 import { useEffect, useState } from 'react';
 import Trend from '../../components/Trend/Trend';
-import { IVehicle } from '../../static/types/IVehicle';
+import { IVehicle, IVehicleType } from '../../static/types/IVehicle';
 
-const vehicle: IVehicle = {
-  "date": {
-    "date": "2024-04-17",
-    "time": "21:00"
+const vehicleExample: IVehicleType = {
+  date: {
+    date: "2024-12-04",
+    time: "13:00",
   },
-  "unic_count": 669,
-  "trend": "up",
-  "nearest": [
-    {
-      "date": {
-        "date": "2024-01-17",
-        "time": "13:00",
-      },
-      "count": 321,
-    }
-  ],
-  "infoTaxi": {
-    "date": {
-      "date": "2024-04-17",
-      "time": "21:00"
-    },
-    "count": 123,
-    "trend": "down",
-    "deviation_appn_count": -0.6,
-    "deviation_appg_count": -0.4
-  },
-  "infoCarsharing": {
-    "date": {
-      "date": "2024-04-17",
-      "time": "21:00"
-    },
-    "count": 223,
-    "trend": "down",
-    "deviation_appn_count": -0.87,
-    "deviation_appg_count": -0.47
-  },
-  "infoNGPT": {
-    "date": {
-      "date": "2024-04-17",
-      "time": "21:00"
-    },
-    "count": 323,
-    "trend": "down",
-    "deviation_appn_count": -0.15,
-    "deviation_appg_count": 0.23
-  }
+  count: 123,
+  trend: 'down',
+  deviation_appn_count: 0.6,
+  deviation_appg_count: 0.4,
 }
 
 export default function VehicleBlock() {
+
+  const [vehicle, setVehicle] = useState<IVehicle>();
+
   const [selectedVehicle, setSelectedVehicle] = useState<string>('taxi');
-  const [currentVehicleData, setCurrentVehicleData] = useState(vehicle.infoTaxi);
+  const [currentVehicleData, setCurrentVehicleData] = useState(vehicle ? vehicle.infoTaxi : vehicleExample);
 
   useEffect(() => {
-    if (selectedVehicle === "taxi") {
-      setCurrentVehicleData(vehicle.infoTaxi);
-    } else if (selectedVehicle === "carsharing") {
-      setCurrentVehicleData(vehicle.infoCarsharing);
-    } else if (selectedVehicle === "ngpt") {
-      setCurrentVehicleData(vehicle.infoNGPT);
+    if (vehicle) {
+      if (selectedVehicle === "taxi") {
+        setCurrentVehicleData(vehicle.infoTaxi);
+      } else if (selectedVehicle === "carsharing") {
+        setCurrentVehicleData(vehicle.infoCarsharing);
+      } else if (selectedVehicle === "ngpt") {
+        setCurrentVehicleData(vehicle.infoNGPT);
+      }
     }
-  }, [selectedVehicle]);
+  }, [selectedVehicle, vehicle]);
+
+
+  useEffect(() => {
+    fetch('/server/transport/info')
+    .then(res => res.json())
+    .then(data => {
+      setVehicle(data);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  }, []);
 
   return (
+    vehicle
+    ?
     <section className={styles.block}>
       <header className={styles.header}>🚕 ТС на Улично-Дорожной Сети</header>
       <div className={styles.stats}>
@@ -103,5 +85,7 @@ export default function VehicleBlock() {
         />
       </div>
     </section>
+    :
+    ''
   );
 }
