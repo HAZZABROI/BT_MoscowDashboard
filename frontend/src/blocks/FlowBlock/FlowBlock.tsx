@@ -144,13 +144,13 @@ export default function FlowBlock() {
         className={styles.select}
         onChange={(evt) => setSelectedVehicle(evt.target.value)}
       >
-        <option value='metro'>Метро + МЦК</option>
-        <option value='ngpt'>НГПТ</option>
-        <option value='trains'>Пригородные поезда</option>
-        <option value='taxi'>Такси</option>
-        <option value='carsharing'>Каршеринг</option>
-        <option value='personal'>Личный транспорт</option>
-        <option value='electrosuda'>Электросуда</option>
+        <option value='metro'>🚆 Метро + МЦК</option>
+        <option value='ngpt'>🚌 НГПТ</option>
+        <option value='trains'>🚂 Пригородные поезда</option>
+        <option value='taxi'>🚕 Такси</option>
+        <option value='carsharing'>🚗 Каршеринг</option>
+        <option value='personal'>🚙 Личный транспорт</option>
+        <option value='electrosuda'>🚢 Электросуда</option>
       </select>
       <div className={styles.flow}>
         <div className={styles.flow_param}>

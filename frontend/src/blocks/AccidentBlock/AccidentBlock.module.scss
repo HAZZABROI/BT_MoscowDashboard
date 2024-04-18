@@ -15,7 +15,7 @@
 
 .accident_stats {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: flex-start;
   gap: 40px;
 }
@@ -26,12 +26,13 @@
   align-items: center;
   align-content: center;
   flex-wrap: wrap;
-  width: 30%;
+  width: 45%;
   background-color: #fff;
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, .1);
   gap: 10px;
+  min-height: 200px;
 }
 
 .stat_param {
@@ -43,14 +44,15 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  align-content: flex-start;
+  align-content: space-between;
   flex-wrap: wrap;
-  width: 40%;
+  width: 45%;
   background-color: #fff;
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, .1);
   gap: 10px;
+  min-height: 200px;
 }
 
 .died_header {
@@ -88,6 +90,7 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: 20px;
+  font-size: 20px;
 }
 
 .header_element {
@@ -95,6 +98,10 @@
 }
 
 .element_description {
+  flex: 2;
+}
+
+.element_address {
   flex: 2;
 }
 
@@ -123,6 +130,10 @@
 }
 
 .item_description {
+  flex: 2;
+}
+
+.item_address {
   flex: 2;
 }
 

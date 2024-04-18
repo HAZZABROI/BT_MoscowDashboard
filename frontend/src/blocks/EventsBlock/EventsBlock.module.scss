@@ -43,6 +43,10 @@
   flex: 2;
 }
 
+.element_address {
+  flex: 2;
+}
+
 .events_list {
   display: flex;
   justify-content: flex-start;
@@ -67,5 +71,9 @@
 }
 
 .item_description {
+  flex: 2;
+}
+
+.item_address {
   flex: 2;
 }

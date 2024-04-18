@@ -4,7 +4,7 @@
   align-items: center;
   padding: 20px 40px;
   width: 100%;
-  gap: 30px;
+  // gap: 30px;
   background-color: #ffffff;
 }
 
@@ -15,4 +15,42 @@
 
 .header_text {
   font-size: 32px;
+}
+
+.btns {
+  display: flex;
+  gap: 30px;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 200px;
+  height: 50px;
+  background-color: rgba(35, 196, 83, 0);
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 18px;
+  color: #111111;
+  border: none;
+  outline: 3px #23c453 solid;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: .5s;
+  &:hover {
+    transition: .5s;
+    color: #ffffff;
+    background-color: rgba(35, 196, 83, 1);
+    .btn_icon {
+      filter: invert(0) sepia(0) saturate(0) hue-rotate(0deg);
+    }
+  }
+}
+
+.btn_icon {
+  transition: .5s;
+  width: 30px;
+  height: 30px;
+  filter: invert(.5) sepia(1) saturate(2) hue-rotate(90deg)
 }

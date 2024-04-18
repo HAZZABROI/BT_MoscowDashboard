@@ -25,7 +25,7 @@ export default function EventsBlock() {
       <div className={styles.events}>
         <div className={styles.events_header}>
           <span className={styles.header_element}>Время</span>
-          <span className={styles.header_element}>Место</span>
+          <span className={styles.header_element + ' ' + styles.element_address}>Место</span>
           <span className={styles.header_element + ' ' + styles.element_description}>Описание</span>
         </div>
         <div className={styles.events_list}>
@@ -33,7 +33,7 @@ export default function EventsBlock() {
               events.map((event, index) => (
                 <div className={styles.list_item} key={index}>
                   <span className={styles.item_element}>{event.time.time}</span>
-                  <span className={styles.item_element}>{event.adress}</span>
+                  <span className={styles.item_element + ' ' + styles.item_address}>{event.adress}</span>
                   <span className={styles.item_element + ' ' + styles.item_description}>{event.event_describtion}</span>
                 </div>
               ))

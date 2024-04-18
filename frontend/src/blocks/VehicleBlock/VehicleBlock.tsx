@@ -64,9 +64,9 @@ export default function VehicleBlock() {
           className={styles.select}
           onChange={(evt) => setSelectedVehicle(evt.target.value)}
         >
-          <option value='taxi'>Такси</option>
-          <option value='carsharing'>Каршеринг</option>
-          <option value='ngpt'>НГПТ</option>
+          <option value='taxi'>🚕 Такси</option>
+          <option value='carsharing'>🚗 Каршеринг</option>
+          <option value='ngpt'>🚌 НГПТ</option>
         </select>
         <div className={styles.stat_block}>
           <div className={styles.stat_param} style={{width: 'auto'}}><span className={styles.amount}>{currentVehicleData.count}</span></div>

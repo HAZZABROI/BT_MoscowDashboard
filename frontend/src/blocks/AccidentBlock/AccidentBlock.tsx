@@ -43,7 +43,7 @@ export default function AccidentBlock() {
     <div className={styles.accident_stats}>
       <div className={styles.stats}>
         <div className={styles.stats_param} style={{width: 'auto'}}>
-          <span className={styles.amount + (accidentInfo.count > 5 ? ' ' + styles.warning : '')}>{accidentInfo.count}</span> ДТП
+          <span className={styles.amount + (accidentInfo.count > 5 ? ' ' + styles.warning : '')}>{accidentInfo.count} ДТП</span>
         </div>
         <Trend trend={accidentInfo.trend} />
         <div className={styles.stat_param}>Отклонение от APPN: {accidentInfo.deviation_appn_count}%</div>
@@ -58,7 +58,7 @@ export default function AccidentBlock() {
     <div className={styles.important_accidents}>
       <header className={styles.list_header}>
         <span className={styles.header_element}>Время</span>
-        <span className={styles.header_element}>Место</span>
+        <span className={styles.header_element + ' ' + styles.element_address}>Место</span>
         <span className={styles.header_element + ' ' + styles.element_description}>Описание</span>
         <span className={styles.header_element}>Время реагирования</span>
       </header>
@@ -67,7 +67,7 @@ export default function AccidentBlock() {
             accidents?.map((accident, index) => (
               <li className={styles.list_item} key={index}>
                 <span className={styles.item_element}>{accident.time.time}</span>
-                <span className={styles.item_element}>{accident.adress}</span>
+                <span className={styles.item_element + ' ' + styles.item_address}>{accident.adress}</span>
                 <span className={styles.item_element + ' ' + styles.item_description}>{accident.describtion}</span>
                 <span className={styles.item_element}>{accident.time_gubdd} мин</span>
               </li>
