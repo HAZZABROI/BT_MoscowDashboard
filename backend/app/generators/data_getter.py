@@ -50,3 +50,164 @@ def get_traffic_accidents_data():
         "diff_appn": diff_appn,
         "diff_appg": diff_appg
     }
+
+def get_accident_count_from(from_time: str):
+    df = pd.read_excel('app/data.xlsx', sheet_name=6)
+    df['dt'] = pd.to_datetime(df['dt'] + ' ' + df['time'])
+
+    target_date_time = pd.to_datetime(from_time)
+
+    filtered_data = df[df['dt'] <= target_date_time]
+
+    total_death_count = filtered_data['accident_cnt'].sum()
+    return {
+        "target_date_time": target_date_time,
+        "total_death_count": total_death_count
+    }
+
+def get_transport_info():
+    df = pd.read_excel('app/data.xlsx', sheet_name=3)
+
+    df['dt'] = pd.to_datetime(df['dt'] + ' ' + df['time'])
+
+    target_date_time = pd.to_datetime(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+
+    prev_hour_time = target_date_time - timedelta(hours=1)
+    
+    filtered_data = df[(df['dt'] <= target_date_time) & (df['dt'] >= prev_hour_time)]
+
+    total_vehicle_cnt = filtered_data.groupby('vehicle_type_nm')['vehicle_cnt'].sum()
+
+    total_appn_cnt = filtered_data.groupby('vehicle_type_nm')['vehicle_cnt_appn'].sum()
+    total_appg_cnt = filtered_data.groupby('vehicle_type_nm')['vehicle_cnt_appg'].sum()
+
+    deviation_appn_count = ((total_vehicle_cnt - total_appn_cnt) / total_vehicle_cnt) * 100
+    deviation_appg_count = ((total_vehicle_cnt - total_appg_cnt) / total_vehicle_cnt) * 100
+
+    deviation_appn_count = deviation_appn_count.round(2)
+    deviation_appg_count = deviation_appg_count.round(2)
+
+    next_hour_time = target_date_time + timedelta(hours=1)
+    next_hour_data = df[(df['dt'] >= target_date_time) & (df['dt'] < next_hour_time)]
+
+    vehicle_info = {
+        "date": {"date": target_date_time.date().strftime('%Y-%m-%d'), "time": target_date_time.time().replace(minute=0, second=0, microsecond=0).strftime('%H:%M')},
+        "total_vehicle_count": total_vehicle_cnt.sum(),
+        "trends": {},
+        "next_hour_forecast": next_hour_data.groupby('vehicle_type_nm')['vehicle_cnt'].sum().to_dict()
+    }
+
+    for vehicle_type in total_vehicle_cnt.index:
+        trend = "up" if total_vehicle_cnt[vehicle_type] > total_appn_cnt[vehicle_type] else "down" if total_vehicle_cnt[vehicle_type] < total_appn_cnt[vehicle_type] else "no_diff"
+        vehicle_info["trends"][vehicle_type] = {
+            "count": total_vehicle_cnt[vehicle_type],
+            "trend": trend,
+            "deviation_appn_count": deviation_appn_count[vehicle_type],
+            "deviation_appg_count": deviation_appg_count[vehicle_type]
+        }
+
+    return vehicle_info
+
+def get_work_info():
+
+    current_date = datetime.now().strftime('%Y-%m-%d')
+    current_time = datetime.now().strftime('%H:00')
+
+    df = pd.read_excel('app/data.xlsx', sheet_name=4)
+    
+    df_filtered = df[(df['dt'] == current_date) & (df['time'] == current_time)]
+    
+    data = {
+        "approvedWorkList": [],
+        "unknownWorksList": []
+    }
+
+    for index, row in df_filtered.iterrows():
+        date = {"date": str(row["dt"]), "time": str(row["time"])}
+        if row["roadworks_nm"] == "Согласованные участки":
+            approved_work = {
+                "date": date,
+                "count": row["roadworks_cnt"],
+                "deviation_appn_count": row["roadworks_cnt_appn"],
+                "deviation_appg_count": row["roadworks_cnt_appg"]
+            }
+            data["approvedWorkList"].append(approved_work)
+        elif row["roadworks_nm"] == "Несогласованные участки":
+            unknown_work = {
+                "date": date,
+                "count": row["roadworks_cnt"],
+                "deviation_appn_count": row["roadworks_cnt_appn"],
+                "deviation_appg_count": row["roadworks_cnt_appg"]
+            }
+            data["unknownWorksList"].append(unknown_work)
+    
+    return data
+
+def get_workload_info():
+    current_date = datetime.now().strftime('%Y-%m-%d')
+    current_time = datetime.now().strftime('%H:00')
+    
+    next_hour = (datetime.now() + timedelta(hours=1)).strftime('%Y-%m-%d %H:00')
+    
+    df_traffic = pd.read_excel('app/data.xlsx', sheet_name=1)
+
+    df_traffic_filtered = df_traffic[(df_traffic['dt'] == current_date) & (df_traffic['time'] == current_time)]
+
+    forecast_score = df_traffic_filtered['trafic_score'].mean()
+
+    trend_jam = "up" if df_traffic_filtered['trafic_jam_lenght'].diff().mean() > 0 else "down"
+
+    trend_time = "up" if df_traffic_filtered['driving_time_min'].diff().mean() > 0 else "down"
+
+    deviation_appn_jam = round(((df_traffic_filtered['trafic_jam_lenght_appn'] - df_traffic_filtered['trafic_jam_lenght']).mean() / df_traffic_filtered['trafic_jam_lenght'].mean()) * 100, 2)
+    deviation_appg_jam = round(((df_traffic_filtered['trafic_jam_lenght_appg'] - df_traffic_filtered['trafic_jam_lenght']).mean() / df_traffic_filtered['trafic_jam_lenght'].mean()) * 100, 2)
+
+    deviation_appn_driving = round(((df_traffic_filtered['driving_time_min_appn'] - df_traffic_filtered['driving_time_min']).mean() / df_traffic_filtered['driving_time_min'].mean()) * 100, 2)
+    deviation_appg_driving = round(((df_traffic_filtered['driving_time_min_appg'] - df_traffic_filtered['driving_time_min']).mean() / df_traffic_filtered['driving_time_min'].mean()) * 100, 2)
+
+    df_highways = pd.read_excel('app/data.xlsx', sheet_name=2)
+
+    df_highways_filtered = df_highways[(df_highways['dt'] == current_date) & (df_highways['time'] == current_time)]
+
+    unique_highways = df_highways_filtered['highway_nm'].unique()
+
+    sorted_highways = []
+    for highway in unique_highways:
+        sorted_highways.extend(df_highways_filtered[df_highways_filtered['highway_nm'] == highway].sort_values(by='top_rang').head(1).to_dict(orient='records'))
+
+    sorted_highways = sorted(sorted_highways, key=lambda x: x['top_rang'])
+
+    top_highways = sorted_highways[:3]
+
+    df_next_hour = df_traffic[(df_traffic['dt'] == next_hour.split()[0]) & (df_traffic['time'] == next_hour.split()[1])]
+    next_hour_score = df_next_hour['trafic_score'].mean()
+
+    workload = {
+        "score": round(forecast_score, 2),
+        "nearest": [
+            {
+                "date": {"date": next_hour.split()[0], "time": next_hour.split()[1]},
+                "score": round(next_hour_score, 2)
+            }
+        ],
+        "lenght_jam": round(df_traffic_filtered['trafic_jam_lenght'].mean(), 2),
+        "trend_jam": trend_jam,
+        "trend_time": trend_time,
+        "deviation_appn_jam": deviation_appn_jam,
+        "deviation_appg_jam": deviation_appg_jam,
+        "driving_time_min": round(df_traffic_filtered['driving_time_min'].mean(), 2),
+        "deviation_appn_driving": deviation_appn_driving,
+        "deviation_appg_driving": deviation_appg_driving,
+        "top_list": []
+    }
+
+    for index, highway in enumerate(top_highways, start=1):
+        top_highway_data = {
+            "date": {"date": current_date, "time": current_time},
+            "nameHW": highway['highway_nm'],
+            "direction": highway['direction_nm'],
+            "top": index
+        }
+        workload["top_list"].append(top_highway_data)
+
+    return workload
