@@ -36,8 +36,8 @@ class Workload(BaseModel):
     score: int = Field(default=1)
     nearest: List[Score]
     lenght_jam: int = Field(default=126)
-    trend_jam: str = Field(default="up | down")
-    trend_time: str = Field(default="up | down")
+    trend_jam: str = Field(default="up | down | no_diff")
+    trend_time: str = Field(default="up | down | no_diff")
     deviation_appn_jam: float = Field(default=23, description="In percentage")
     deviation_appg_jam: float = Field(default=11, description="In percentage")
     driving_time_min: int = Field(default=12, description="Travel time per 10 km")
@@ -49,7 +49,7 @@ class Workload(BaseModel):
 class InfoTaxi(BaseModel):
     date: DateTime
     count: int = Field(default=123)
-    trend: str = Field(default="up | down")
+    trend: str = Field(default="up | down | no_diff")
     deviation_appn_count: float = Field(default=23, description="In percentage")
     deviation_appg_count: float = Field(default=11, description="In percentage")
 
@@ -57,7 +57,7 @@ class InfoTaxi(BaseModel):
 class InfoCarsharing(BaseModel):
     date: DateTime
     count: int = Field(default=123)
-    trend: str = Field(default="up | down")
+    trend: str = Field(default="up | down | no_diff")
     deviation_appn_count: float = Field(default=23, description="In percentage")
     deviation_appg_count: float = Field(default=11, description="In percentage")
 
@@ -70,7 +70,7 @@ class InfoDetailTransportNearest(BaseModel):
 class InfoNGPT(BaseModel):
     date: DateTime
     count: int = Field(default=123)
-    trend: str = Field(default="up | down")
+    trend: str = Field(default="up | down | no_diff")
     deviation_appn_count: float = Field(default=23, description="In percentage")
     deviation_appg_count: float = Field(default=11, description="In percentage")
 
@@ -79,7 +79,7 @@ class TransportInfo(BaseModel):
     date: DateTime
     unic_count: int = Field(default=12332)
     nearest: List[InfoDetailTransportNearest]
-    trend: str = Field(default="up | down")
+    trend: str = Field(default="up | down | no_diff")
     infoTaxi: InfoTaxi
     infoCarsharing: InfoCarsharing
     infoNGPT: InfoNGPT 

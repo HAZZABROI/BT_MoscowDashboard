@@ -90,9 +90,21 @@ def get_transport_info():
     next_hour_time = target_date_time + timedelta(hours=1)
     next_hour_data = df[(df['dt'] >= target_date_time) & (df['dt'] < next_hour_time)]
 
+    prev_hour_data = df[(df['dt'] >= prev_hour_time) & (df['dt'] < target_date_time)]
+
+    diff_cnt = total_vehicle_cnt.sum() - prev_hour_data['vehicle_cnt'].sum()
+
+    if diff_cnt > 0:
+        overall_trend = "up"
+    elif diff_cnt == 0:
+        overall_trend = "no_diff"
+    else:
+        overall_trend = "down"
+
     vehicle_info = {
         "date": {"date": target_date_time.date().strftime('%Y-%m-%d'), "time": target_date_time.time().replace(minute=0, second=0, microsecond=0).strftime('%H:%M')},
         "total_vehicle_count": total_vehicle_cnt.sum(),
+        "trend": overall_trend,
         "trends": {},
         "next_hour_forecast": next_hour_data.groupby('vehicle_type_nm')['vehicle_cnt'].sum().to_dict()
     }
@@ -155,9 +167,19 @@ def get_workload_info():
 
     forecast_score = df_traffic_filtered['trafic_score'].mean()
 
-    trend_jam = "up" if df_traffic_filtered['trafic_jam_lenght'].diff().mean() > 0 else "down"
+    if df_traffic_filtered['trafic_jam_lenght'].diff().mean() > 0:
+        trend_jam = "up"
+    elif df_traffic_filtered['trafic_jam_lenght'].diff().mean() == 0:
+        trend_jam = "no_diff"
+    else:
+        trend_jam = "down"
 
-    trend_time = "up" if df_traffic_filtered['driving_time_min'].diff().mean() > 0 else "down"
+    if df_traffic_filtered['driving_time_min'].diff().mean() > 0:
+        trend_time = "up"
+    elif df_traffic_filtered['driving_time_min'].diff().mean() == 0:
+        trend_time = "no_diff"
+    else:
+        trend_time = "down"
 
     deviation_appn_jam = round(((df_traffic_filtered['trafic_jam_lenght_appn'] - df_traffic_filtered['trafic_jam_lenght']).mean() / df_traffic_filtered['trafic_jam_lenght'].mean()) * 100, 2)
     deviation_appg_jam = round(((df_traffic_filtered['trafic_jam_lenght_appg'] - df_traffic_filtered['trafic_jam_lenght']).mean() / df_traffic_filtered['trafic_jam_lenght'].mean()) * 100, 2)

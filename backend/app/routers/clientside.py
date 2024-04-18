@@ -133,7 +133,8 @@ async def get_transport_info() -> schemas.ClientBaseTransportInfoResponse:
                     time=new_datetime.strftime("%H:%M")
                 ),
                 count=summ
-            )]
+            )],
+            trend=data["trend"]
         )
     )
     return response
@@ -196,7 +197,7 @@ async def get_accident() -> schemas.ClientBaseTrafficAccidentResponse:
 @router.get("/traffic/accident/die",
             tags=["Client side"]
 )
-async def get_die_accedint(date_from: str, time_from: str) -> schemas.ClientBaseTrafficAccidentDieInfoResponse:
+async def get_die_accident(date_from: str, time_from: str) -> schemas.ClientBaseTrafficAccidentDieInfoResponse:
 
     data = data_getter.get_accident_count_from(date_from + " " + time_from)
 
