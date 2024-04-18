@@ -1,0 +1,54 @@
+.block {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.header {
+  width: 100%;
+  font-size: 32px;
+}
+
+.label {
+  width: 100%;
+  font-size: 24px;
+}
+
+.select {
+  width: 50%;
+  border: none;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, .1);
+  color: #111111;
+  font-size: 20px;
+  cursor: pointer;
+  font-family: 'TT Norms Pro';
+}
+
+.flow {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, .1);
+  gap: 30px;
+  width: calc(50% - 40px);
+}
+
+.flow_param {
+  width: 100%;
+  font-size: 24px;
+}
+
+.amount {
+  font-size: 64px;
+}

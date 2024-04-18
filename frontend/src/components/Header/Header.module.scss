@@ -1,0 +1,18 @@
+.header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px 40px;
+  width: 100%;
+  gap: 30px;
+  background-color: #ffffff;
+}
+
+.icon {
+  width: 100px;
+  height: 100px;
+}
+
+.header_text {
+  font-size: 32px;
+}

@@ -1,0 +1,19 @@
+.wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.main {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 50px;
+  padding: 40px;
+}
