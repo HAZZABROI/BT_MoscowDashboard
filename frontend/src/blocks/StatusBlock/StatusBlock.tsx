@@ -5,8 +5,9 @@ import rainIcon from '../../static/icons/rain.svg';
 import Trend from '../../components/Trend/Trend';
 import { IWeather } from '../../static/types/IWeather';
 import { IWorkload } from '../../static/types/IWorkload';
-import classNames from 'classnames/bind';
-const cx = classNames.bind(styles);
+import trafficLightRedIcon from '../../static/icons/trafficlight/traffic-light-red.svg';
+import trafficLightYellowIcon from '../../static/icons/trafficlight/traffic-light-yellow.svg';
+import trafficLightGreenIcon from '../../static/icons/trafficlight/traffic-light-green.svg';
 
 const days = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
 const zeroPad = (num: number, places: number) => String(num).padStart(places, '0');
@@ -29,7 +30,7 @@ const workload: IWorkload = {
     "date": "2024-04-17",
     "time": "13:00"
   },
-  "score": 1,
+  "score": 5,
   "nearest": [
     {
       "date": {
@@ -71,7 +72,7 @@ export default function StatusBlock() {
           <div className={styles.workload_header}>🚚 Загруженность</div>
           <div className={styles.workload_congection}>
             <div className={styles.congection_points}>
-              <div className={cx({'light': true, 'green': workload.score >= 0 && workload.score <= 4, yellow: workload.score > 4 && workload.score <= 7, red: workload.score > 7 && workload.score <= 10})} />
+              <img className={styles.light} src={workload.score >= 0 && workload.score <= 4 ? trafficLightGreenIcon : workload.score > 4 && workload.score <= 7 ? trafficLightYellowIcon : workload.score > 7 && workload.score <= 10 ? trafficLightRedIcon : ''} alt="" />
               <div className={styles.points}>{workload.score} балл</div>
             </div>
             <div className={styles.prediction}>{workload.nearest[0].date.time}: {workload.nearest[0].score} балл</div>

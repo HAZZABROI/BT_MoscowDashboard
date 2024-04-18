@@ -1,0 +1,27 @@
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 300px;
+  height: 50px;
+  background-color: rgba(196, 35, 35, 0);
+  font-family: 'TT Norms Pro';
+  font-size: 18px;
+  color: #111111;
+  border: none;
+  outline: 3px #c42323 solid;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: .5s;
+  &:hover {
+    transition: .5s;
+    color: #ffffff;
+    background-color: rgb(196, 35, 35);
+  }
+}
+
+.btn_icon {
+  width: 30px;
+  height: 30px;
+}
