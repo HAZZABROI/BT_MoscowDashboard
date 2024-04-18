@@ -211,3 +211,93 @@ async def get_die_accident(date_from: str, time_from: str) -> schemas.ClientBase
         )
     )
     return response
+
+@router.get("/miningful/accident",
+             tags=["Client side"]
+)
+
+async def get_meaningful_dtp() -> schemas.ClientBaseMeaningfulDtpResponse:
+
+    data = data_getter.get_miningful_accident()["data"]
+
+    data_list = []
+
+    for i in data:
+        data_list.append(models.MeaningfulDtp(
+            time=models.DateTime(
+                date=i["time"]["date"],
+                time=i["time"]["time"]
+            ),
+            adress=i["adress"],
+            describtion=i["describtion"],
+            time_gubdd=i["time_gubdd"]
+        ))
+
+    response = schemas.ClientBaseMeaningfulDtpResponse(
+        data = data_list
+    )
+    return response
+
+@router.get("/miningful/event",
+             tags=["Client side"]
+)
+
+async def impotent_events() -> schemas.ClientBaseImpotentEventsResponse:
+
+    data = data_getter.get_miningful_events()["data"]
+
+    data_list = []
+
+    for i in data:
+        data_list.append(models.ImpotentEvents(
+            time=models.DateTime(
+                date=i["time"]["date"],
+                time=i["time"]["time"]
+            ),
+            adress=i["adress"],
+            event_describtion=i["describtion"]
+        ))
+
+    respons = schemas.ClientBaseImpotentEventsResponse(
+        data = data_list
+    )
+    return respons
+
+@router.get("/passagr/traffic",
+             tags=["Client side"]
+)
+async def passanger_traffic() -> schemas.ClientBasePassangerTrafficResponse:
+
+    data = data_getter.get_passagir_traffic()["data"]
+
+    response = schemas.ClientBasePassangerTrafficResponse(
+        data = models.PassangerTraffic(
+            info_ngpt=models.NGPT(
+                ngpt_yesterday=data["info_ngpt"]["ngpt_yesterday"],
+                ngpt_2weeks_ago=data["info_ngpt"]["ngpt_2weeks_ago"],
+                daviation=data["info_ngpt"]["daviation"]
+            ),
+            infa_surban_trains=models.SurbanTrains(
+                suburban_trains_yesterday=data["infa_surban_trains"]["suburban_trains_yesterday"],
+                suburban_trains_2weeks_ago=data["infa_surban_trains"]["suburban_trains_2weeks_ago"],
+                daviation=data["infa_surban_trains"]["daviation"]
+            ),
+            infa_taxi=models.Taxi(
+                taxi_yesterday=data["infa_taxi"]["taxi_yesterday"],
+                taxi_2weeks_ago=data["infa_taxi"]["taxi_2weeks_ago"],
+                daviation=data["infa_taxi"]["daviation"]
+            ),
+            infa_carshering=models.Carshering(
+                carshering_yesterday=data["infa_carshering"]["carshering_yesterday"],
+                carshering_2weeks_ago=data["infa_carshering"]["carshering_2weeks_ago"],
+                daviation=data["infa_carshering"]["daviation"]
+            ),
+            infa_electrosuda=models.Electrosuda(
+                electrosuda_yesterday=data["infa_electrosuda"]["electrosuda_yesterday"],
+                electrosuda_2weeks_ago=data["infa_electrosuda"]["electrosuda_2weeks_ago"],
+                daviation=data["infa_electrosuda"]["daviation"]
+            ),
+
+        )
+    )
+    return response
