@@ -34,7 +34,7 @@
   gap: 10px;
 }
 
-.stats_param {
+.stat_param {
   width: 100%;
   font-size: 20px;
 }
@@ -127,6 +127,8 @@
 }
 
 .amount {
+  display: block;
+  width: 100%;
   font-size: 64px;
 }
 
