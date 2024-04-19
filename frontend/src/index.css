@@ -10,11 +10,11 @@ html {
   line-height: 1.5;
   font-weight: 400;
   font-size: 18px;
-
-  color-scheme: light dark;
+  
+  color-scheme: dark;
   color: #111111;
   background-color: #F8F8F8;
-
+  
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -25,6 +25,7 @@ body {
   margin: 0;
   height: 100%;
   overflow-x: hidden;
+  background: linear-gradient(#f8f8f8, rgba(119, 79, 231, .2), rgba(107, 138, 240, .2), #f8f8f8);
 }
 
 option {

@@ -39,8 +39,8 @@
   cursor: pointer;
   transition: .5s;
   &:hover {
-    transition: .5s;
     color: #ffffff;
+    transition: .5s;
     background-color: rgba(35, 196, 83, 1);
     .btn_icon {
       filter: invert(0) sepia(0) saturate(0) hue-rotate(0deg);
