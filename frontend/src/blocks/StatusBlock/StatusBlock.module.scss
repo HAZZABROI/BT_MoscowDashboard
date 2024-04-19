@@ -4,12 +4,12 @@
   align-items: flex-start;
   align-content: flex-start;
   flex-wrap: wrap;
-  gap: 30px;
 }
 
 .header {
   width: 100%;
   font-size: 32px;
+  margin-bottom: 20px;
 }
 
 .traffic {
@@ -44,38 +44,10 @@
 
 .workload_congection {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  width: 90%;
+  width: 100%;
   gap: 20px;
-}
-
-.congection_points {
-  display: flex;
-  gap: 20px;
-}
-
-.light {
-  width: 50px;
-  height: 50px;
-  // border-radius: 50%;
-  // &.green {
-  //   background-color: #13BE62;
-  // }
-  // &.yellow {
-  //   background-color: #fff12b;
-  // }
-  // &.red {
-  //   background-color: #FF3030;
-  // }
-}
-
-.points {
-  font-size: 32px;
-}
-
-.prediction {
-  font-size: 20px;
 }
 
 .workload_top {
@@ -150,9 +122,9 @@
   flex-wrap: wrap;
   position: absolute;
   top: 4%;
-  right: 20px;
+  right: 0px;
   z-index: 2;
-  width: 30%;
+  width: 40%;
   height: 100%;
 }
 
@@ -198,7 +170,7 @@
   align-items: flex-start;
   align-content: flex-start;
   flex-wrap: wrap;
-  width: 90%;
+  width: 100%;
   background-color: #fff;
   padding: 20px;
   border-radius: 15px;

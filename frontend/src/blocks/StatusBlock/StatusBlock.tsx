@@ -5,10 +5,8 @@ import rainIcon from '../../static/icons/rain.svg';
 import Trend from '../../components/Trend/Trend';
 import { IWeather } from '../../static/types/IWeather';
 import { IWorkload } from '../../static/types/IWorkload';
-import trafficLightRedIcon from '../../static/icons/traffic-light-red.png';
-import trafficLightYellowIcon from '../../static/icons/traffic-light-yellow.png';
-import trafficLightGreenIcon from '../../static/icons/traffic-light-green.png';
 import { useEffect, useState } from 'react';
+import TrafficWorkload from '../../components/TrafficWorkload/TrafficWorkload';
 
 const days = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
 const zeroPad = (num: number, places: number) => String(num).padStart(places, '0');
@@ -58,11 +56,7 @@ export default function StatusBlock() {
         <div className={styles.traffic_workload}>
           <div className={styles.workload_header}>🚚 Загруженность</div>
           <div className={styles.workload_congection}>
-            <div className={styles.congection_points}>
-              <img className={styles.light} src={workload.score >= 0 && workload.score <= 4 ? trafficLightGreenIcon : workload.score > 4 && workload.score <= 7 ? trafficLightYellowIcon : workload.score > 7 && workload.score <= 10 ? trafficLightRedIcon : ''} alt="" />
-              <div className={styles.points}>{workload.score} балл</div>
-            </div>
-            <div className={styles.prediction}>{workload.nearest[0].date.time}: {workload.nearest[0].score} балл</div>
+            <TrafficWorkload points={workload.score} nearest_points={workload.nearest[0].score} nearest_time={workload.nearest[0].date.time} />
           </div>
           <div className={styles.workload_top}>
             <div className={styles.top_header}>Топ-3 самые загруженные магистрали:</div>
@@ -97,6 +91,7 @@ export default function StatusBlock() {
           <div className={styles.date}>
             <div className={styles.date_time}>{`${zeroPad(currentDate.getHours(), 2)}:${zeroPad(currentDate.getMinutes(), 2)}:${zeroPad(currentDate.getSeconds(), 2)}`}</div>
             <div className={styles.date_day}>{currentDate.toLocaleString('ru-RU', { day: 'numeric', month: 'long' })}, {days[currentDate.getDay()]}</div>
+            <TrafficWorkload points={workload.score} nearest_points={workload.nearest[0].score} nearest_time={workload.nearest[0].date.time} />
           </div>
           <div className={styles.weather}>
             <img src={weather.now.status_weather === "облачно" ? cloudIcon : weather.now.status_weather.includes('дождь') ? rainIcon : sunIcon} alt="" className={styles.weather_icon} />

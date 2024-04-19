@@ -1,16 +1,17 @@
 .block {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: flex-start;
   align-content: flex-start;
   flex-wrap: wrap;
-  gap: 30px;
+  // gap: 30px;
   width: 60%;
 }
 
 .header {
   width: 100%;
   font-size: 32px;
+  margin-bottom: 20px;
 }
 
 .stats {
@@ -19,7 +20,7 @@
   align-items: flex-start;
   flex-wrap: wrap;
   gap: 20px;
-  width: 50%;
+  width: 45%;
 }
 
 .stat_block {
@@ -70,7 +71,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  width: 47%;
+  width: 50%;
 }
 
 .plot {
