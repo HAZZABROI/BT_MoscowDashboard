@@ -270,8 +270,8 @@ def get_miningful_events():
     return {"data": json_data}
 
 def get_passagir_traffic():
-    current_date = datetime.now().strftime('%Y-%m-%d')
-    yesterday_date = (datetime.now() - timedelta(1)).strftime('%Y-%m-%d')
+    current_date = (datetime.now() - timedelta(1)).strftime('%Y-%m-%d')
+    yesterday_date = (datetime.now() - timedelta(2)).strftime('%Y-%m-%d')
 
     df = pd.read_excel("app/data.xlsx", sheet_name=9)
 
