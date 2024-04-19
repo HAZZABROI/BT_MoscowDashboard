@@ -9,7 +9,7 @@ interface IHeaderProps {
 export default function Header(props: IHeaderProps) {
   return (
     <header className={styles.header}>
-      <div className={styles.header_text}>Дашборд Московского транспорта</div>
+      <div className={styles.header_text}>Дашборд ИЦ Московского транспорта</div>
       <div className={styles.btns}>
         <button className={styles.btn} onClick={() => window.location.reload()}>
           <img src={reloadIcon} alt="" className={styles.btn_icon}/>
